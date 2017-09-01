@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="row padding-top padding-bottom">
+   <div class="col-md-1"></div>
+   <div class="col-md-11 padding-none">
+   </div>
+   <div class="col-md-7"></div>
+</div>
+<div class="col-md-11 col-md-offset-1 padding-none">
+   <h1>{{ item.name }}
+   </h1>
+</div>
+</div>
+<div class = 'flash'>
+   {% with messages = get_flashed_messages() %}
+   {% if messages %}
+   <ul>
+      {% for message in messages %}
+      <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+   </ul>
+   {% endif %}
+   {% endwith %}
+</div>
+<div class="row padding-top padding-bottom">
+   <div class="col-md-1"></div>
+   <div class="col-md-11 padding-none">
+      <a href="{{url_for('editItem', category_id = category.id, item_id = item.id )}}">
+      <button class="btn btn-default" id="edit-item">
+      <span aria-hidden="true"></span>Edit 
+      </button>
+      </a>
+      <a href="{{url_for('deleteItem', category_id = category.id, item_id = item.id )}}">
+      <button class="btn btn-default delete" id="delete-item">
+      <span aria-hidden="true"></span>Delete
+      </button>
+      </a>
+   </div>
+   <div class="col-md-11 col-md-offset-1 padding-none">
+      <h2>{{item.name}}
+      </h2>
+      <p>{{item.description}}</p>
+   </div>
+   <div class="col-md-7"></div>
+</div>
+{% endblock %}
