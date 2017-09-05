@@ -110,6 +110,8 @@ def fbconnect():
     return output
 
 # Fb Disconnect - Revoke a current user's token and reset their login_session
+
+
 @app.route('/fbdisconnect')
 def fbdisconnect():
     facebook_id = login_session['facebook_id']
@@ -215,7 +217,10 @@ def gconnect():
     print "done!"
     return output
 
-# Google Disconnect - Revoke a current user's token and reset their login_session
+# Google Disconnect - Revoke a current user's token and reset their
+# login_session
+
+
 @app.route('/gdisconnect')
 def gdisconnect():
     # Only disconnect a connected user.
@@ -262,6 +267,8 @@ def getUserID(email):
         return None
 
 # JSON APIs to view Information
+
+
 @app.route('/catalog/<int:category_id>/item/JSON')
 def itemJSON(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
@@ -269,10 +276,12 @@ def itemJSON(category_id):
         category_id=category_id).all()
     return jsonify(Items=[i.serialize for i in items])
 
+
 @app.route('/catalog/<int:category_id>/item/<int:item_id>/JSON')
 def itemDescJSON(category_id, item_id):
     item = session.query(Item).filter_by(id=item_id).one()
     return jsonify(Item=item.serialize)
+
 
 @app.route('/catalog/JSON')
 def catalogJSON():
@@ -291,6 +300,8 @@ def showCategories():
         return render_template('categories.html', categories=categories)
 
 # Create a new category
+
+
 @app.route('/catalog/new/', methods=['GET', 'POST'])
 def newCategory():
     if 'username' not in login_session:
@@ -306,6 +317,8 @@ def newCategory():
         return render_template('newCategory.html')
 
 # Edit a category
+
+
 @app.route('/catalog/<int:category_id>/edit/', methods=['GET', 'POST'])
 def editCategory(category_id):
     editedCategory = session.query(
@@ -326,6 +339,8 @@ def editCategory(category_id):
         return render_template('editCategory.html', category=editedCategory)
 
 # Delete a category
+
+
 @app.route('/catalog/<int:category_id>/delete/', methods=['GET', 'POST'])
 def deleteCategory(category_id):
     if 'username' not in login_session:
@@ -360,6 +375,8 @@ def showItem(category_id):
                                category=category, creator=creator)
 
 # create a new item
+
+
 @app.route('/catalog/<int:category_id>/item/new/', methods=['GET', 'POST'])
 def newItem(category_id):
     if 'username' not in login_session:
@@ -397,6 +414,8 @@ def showDesc(category_id, item_id):
                                category=category, creator=creator)
 
 # Edit an item
+
+
 @app.route('/category/<int:category_id>/item/<int:item_id>/edit/',
            methods=['GET', 'POST'])
 def editItem(category_id, item_id):
@@ -422,6 +441,8 @@ def editItem(category_id, item_id):
                                item_id=item_id, item=editedItem)
 
 # Delete an item
+
+
 @app.route('/category/<int:category_id>/item/<int:item_id>/delete/',
            methods=['GET', 'POST'])
 def deleteItem(category_id, item_id):
@@ -443,6 +464,8 @@ def deleteItem(category_id, item_id):
                                item=itemToDelete)
 
 # Disconnect based on provider
+
+
 @app.route('/disconnect')
 def disconnect():
     if 'provider' in login_session:
